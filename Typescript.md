@@ -2,6 +2,7 @@
 
 ##  一、数据类型
 > 原始数据类型： undefined、symbol、string、null、number、boolean
+>
 > 记忆口诀：U SO N B（你如此牛逼） 对应关系 undefined string object null number boolean
 
 
