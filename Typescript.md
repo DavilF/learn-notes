@@ -3,6 +3,8 @@
 ##  一、数据类型
 > 原始数据类型： undefined、symbol、string、null、number、boolean
 >
+> 
+>
 > 记忆口诀：U SO N B（你如此牛逼） 对应关系 undefined string object null number boolean
 
 
@@ -28,6 +30,10 @@ b = 'femal';
 let c: number | string
 c = 1;
 c = 'hello';
+
+//&连接： 表示同时满足
+let k: {name: string} & {age: number};
+k = {name:'adc', age:18}
 
 
 
@@ -77,5 +83,71 @@ function fn2(): never {
     throw new Error('报错了！');  //代码报错就不会再有返回值了
 }
 
-~~~
 
+//8、【对象】---------------
+/*
+* {} 用来指定对象中含有哪些属性
+* 语法： {属性名: 属性值, 属性名: 属性值}
+* 在属性后面加上?，表示该属性时可选的
+* [propName: string]: any 表示任意类型的属性
+*/
+let obj: { name: string, age?: number, [propName: string]: any }
+obj = { name: ' UZI', age: 20, pos: 'ADC' }
+
+/**
+ * 设置函数结构的类型声明
+ * 语法：（形参1:类型, 形参2: 类型, ...）=> 返回值类型
+ */
+let fun1: (a: number, b: number) => number;
+fun1 = function (a, b) { return a + b }
+
+
+
+//9、【数组】---------------
+/**
+ * 表示数组的语法：
+ * 1、类型[]; 
+ * 2、Array<类型>
+*/
+let arr1: string[];
+arr1 = ['hello', 'world']
+
+let arr2: Array<string>;
+arr2 = ['hello', 'world']
+
+
+
+//10、【元祖,tuple】表示固定长度的数组---------------
+/* 
+* 语法: [类型1, 类型2，...]
+*/
+let tuple1: [string, number];
+tuple1 = ['h', 1]
+
+
+
+//10、【enum 枚举】常用来表示把所有的值列举出来 ---------------
+enum Gender {
+    Male,
+    Female
+}
+let user:{name: string, gender: Gender};
+user = {
+    name: 'Admin',
+    gender: Gender.Male
+};
+console.log(user.gender === Gender.Male) // true
+
+
+
+//11、类型的别名： 简化类型的使用 ---------------
+/* 
+* 语法： type 别名 = 类型
+*/
+type myStringType = string;
+let str1: myStringType;
+str1 = 'hello';
+
+type myGroup = 1 | 2| 3 | 4 | 5;
+let st2: myGroup;
+st2 = 2;
