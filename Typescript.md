@@ -151,3 +151,102 @@ str1 = 'hello';
 type myGroup = 1 | 2| 3 | 4 | 5;
 let st2: myGroup;
 st2 = 2;
+
+~~~
+
+
+
+
+##  二、编译选项
+
+### 1、从简单到全面的编译演化
+
+> 想要编译单个文件 
+
+```js
+tsc app.ts
+//=> 出现问题： 我改一次app.ts里的东西，我就得执行一次上面的命令，一个字“烦”， 怎么解决？？
+
+tsc app.ts -w 
+//=> 进入编译监视模式，此时解决了改一次编一次的问题。 
+//那么第二个问题产生了，我有多个文件，难道开多个终端开编译监视模式监听文件修改吗? 一个字"烦"， 怎么解决？？
+
+//于是救世主的 'tsconfig.json' 出现
+```
+
+
+### 2、自动编译整个项目的ts
+
+> 1、若直接使用 tsc指令，则可以自动将当前目录下的所有文件编译为js文件。
+>
+> 2、能直接使用tsc指令编译整个项目的前提是： 在整个项目的根目录下创建一个ts的配置文件`tsconfig.json`。
+
+### 3、tsconfig.json 详解
+
+> 1、首先这是个JSON的配置，但是里面居然可以是写注释的。
+>
+> 2、tsconfig.json 是ts编译器的配置文件，ts编译器可以根据它的配置来对代码进行编译。
+
+```json
+{
+    /* 
+        "include": 用来指定哪些ts文件需要被编译，值是个数组，可指定多个路径
+        路径: ** 表示任意目录
+               * 表示任意文件
+    */
+    "include": [
+        "./src/**/*"
+    ],
+    
+    /*【最重要】"compilerOptions"：编译器的选项*/
+    "compilerOptions": {
+        //指定ts被编译为ES的版本；值（'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018', 'es2019'...）
+        "target": "es5",
+
+        //指定ts编译使用的模块化规范；值('common.js', 'amd', 'system', 'umd', 'es6', 'es2015', 'es2020', 'esnext')
+        "module": "es2015",
+
+        //指定项目中要使用的库 （浏览器中运行的代码一般不需要设置）
+        //"lib": []
+
+        //用来指定编译后的文件放置的目录
+        "outDir": "./dist",
+
+        //用来将代码合并为1个文件
+        //"outFile": "./dist/bundle.js"
+
+        //是否对js文件进行编译，默认false
+        "allowJs": false,
+
+        //是否坚持js代码是否符合ts语法规范，默认false
+        "checkJs": false,
+
+        //是否移除注释，默认false
+        "removeComments": false,
+
+        //不生成编译后的文件，默认false
+        "noEmit": false,
+
+        //当ts文件有错误时不生成编译后的文件，默认false
+        "noEmitOnError": true,
+
+        /* 下面的配置是跟ts的语法检查相关的配置
+        -------------------------------------------------------------- */
+        //所有严格检查的总开关，这里时true,下面全是true； false则下面检查全是false
+        "strict": true,
+
+        //用来设置编译后的文件是否使用严格模式“use strict”; 默认false
+        "alwaysStrict": false,
+
+        //设置是否允许隐式的any类型; 默认false
+        "noImplicitAny": false,
+
+        //不允许不明确类型的this; 默认false
+        "noImplicitThis": false,
+
+        //是否严格检查空值; 默认false
+        "strictNullChecks": false
+    }
+}
+```
+
