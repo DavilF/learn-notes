@@ -250,3 +250,93 @@ tsc app.ts -w
 }
 ```
 
+
+
+##  三、Webpack配置
+
+### webpack.config.js
+
+```javascript
+const path = require('path');
+//引入html插件
+const HTMLWebpackPlugin = require('html-weboack-plugin');
+//引入clean插件
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+
+
+
+//webpack中所有的配置信息都应该写在module.exports中
+module.exports = {
+    //指定入口文件
+    entry:'./src/index.ts',
+
+    //指定输出目录
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        //打包后的文件名
+        filename:'bundle.js',
+
+        //告诉webpack不使用箭头函数
+        environment:{
+            arrowFunction: false
+        }
+    },
+
+    //指定webpack打包时要使用模块
+    module:{
+        //指定要加载的规则
+        rules: [
+            {
+                //指定的时规则生效的文件
+                test:/\.ts$/,
+                use:[
+                    //配置babel
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            //设置预定义的环境
+                            presets: [
+                                [
+                                    //指定环境插件
+                                    '@babel/preset-env',
+                                    //配置信息
+                                    {
+                                        targets: {
+                                            'chrome': '60'
+                                        },
+
+                                        //指定corejs版本
+                                        'corejs': '3',
+
+                                        //使用corejs的方式： 按需加载
+                                        'useBuildIns': 'useage'
+
+                                    }
+                                ]
+                            ]
+                        }
+                    }
+                ]
+            },
+            'ts-loader'
+        ],
+        
+        //要排除的文件
+        exclude: /node_modules/
+    },
+
+    //配置webpack的插件
+    plugins: [
+        new CleanWebpackPlugin(),
+        new HTMLWebpackPlugin({
+            template:'./src/index.html'
+        })
+    ],
+
+    //用来设置引用模块: 解决模块化的问题
+    resolve:{
+        extensions: ['.ts', '.js']
+    }
+    
+}
+```
