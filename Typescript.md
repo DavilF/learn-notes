@@ -340,3 +340,130 @@ module.exports = {
     
 }
 ```
+
+
+
+
+
+
+
+## 四、类
+
+####  1、基础用法
+
+```javascript
+class Person {
+    //实例属性，只能被实例访问
+    name: '孙悟空'
+
+    //静态方法，只能被类调用
+    static age: 18
+
+    //只读属性，只能读不能改
+    readonly sex = '男'
+
+
+    //方法
+    sayHello() {
+        console.log('Hello,大家好');
+
+    }
+}
+const per = new Person();
+```
+
+
+
+#### 2、构造函数 和 this
+
+```javascript
+class Dog {
+    //先申明实例属性
+    name: string;
+    age: number;
+
+    //constructor被称为构造函数，构造函数会在 new Dog()时被执行
+    constructor(name: string, age: number) {
+        //this表示当前new出来的实例
+        this.name = name;
+        this.age = age;
+    }
+
+    bark() {
+        console.log(`${this.name} 汪汪汪!`)
+    }
+}
+
+const dog1 = new Dog('小黑', 2);
+const dog2 = new Dog('旺财', 8);
+```
+
+
+
+
+
+#### 3、类的继承和super
+
+```javascript
+//1、定义Animal类
+class Animal {
+    name: string;
+    age: number;
+
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+
+    sayHello() {
+        console.log(`动物再叫！`)
+    }
+}
+
+/**继承的语法： 
+ * --- class 子类 extends 父类 （eg: class Dog extends Animal）
+ * 
+ * 继承的作用：
+ * --- 通过继承可以将多个类中共有的代码写在一个父类中，这样只需要写一次即可，且让所有子类同时
+ * 拥有父类的属性和方法
+ * 
+ */
+
+
+//2、定义Dog类，使Dog类继承Animal类
+class Dog extends Animal {
+    color: string;
+
+    //子类重写constructor
+    //tips：如果在子类中写了构造函数，在子类的构造函数中必须对父类的构造函数进行调用
+    constructor(name: string, age: number, color: string) {
+        super(name, age); //调用父类的构造函数： Animal.constructor.call(this,name, age)
+        this.color = color;
+    }
+
+    //- 添加方法
+    run() {
+        console.log(`${this.name}会跑`);
+    }
+
+    //- 方法重写
+    sayHello(): void {
+        console.log(`汪汪汪!`)
+    }
+}
+
+
+//3、定义Cat类，使Cat类继承Animal类
+class Cat extends Animal {
+    //- 添加方法
+    jump() {
+        console.log(`${this.name}会跳`);
+    }
+
+    //- 方法重写
+    sayHello(): void {
+        console.log(`喵喵喵！`)
+    }
+}
+```
+
