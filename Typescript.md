@@ -469,7 +469,7 @@ class Cat extends Animal {
 
 #### 4、抽象类
 
-~~~typescript
+```typescript
 /** 抽象类语法： 
  *      abstract class 父类 （eg: abstract class Animal）
  * 
@@ -492,7 +492,7 @@ abstract class Animal {
     */
     abstract sayHello(): void;
 }
-~~~
+```
 
 
 
@@ -504,7 +504,7 @@ abstract class Animal {
 
 > 接口其实就是定义一个规范
 
-~~~typescript
+```typescript
 /* 用法1：
 * 描述一个对象的类型
 * type myType {} 不能重复定义
@@ -561,7 +561,7 @@ class MyClass implements MyInter2 {
         console.log('哈哈哈！')
     }
 }
-~~~
+```
 
 
 
@@ -569,7 +569,7 @@ class MyClass implements MyInter2 {
 
 ## 六、属性的封装
 
-~~~typescript
+```typescript
 /** 
  * 定义一个人的类
  *  TS可以在属性前加修饰符 (static、 readonly、public、private)
@@ -613,5 +613,5 @@ class Person {
 const per = new Person('猪八戒', 20);
 per.name = '孙悟空';
 per.age = 118;
-~~~
+```
 
