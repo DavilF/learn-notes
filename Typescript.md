@@ -351,7 +351,7 @@ module.exports = {
 
 ####  1、基础用法
 
-```javascript
+```typescript
 class Person {
     //实例属性，只能被实例访问
     name: '孙悟空'
@@ -376,7 +376,7 @@ const per = new Person();
 
 #### 2、构造函数 和 this
 
-```javascript
+```typescript
 class Dog {
     //先申明实例属性
     name: string;
@@ -404,7 +404,7 @@ const dog2 = new Dog('旺财', 8);
 
 #### 3、类的继承和super
 
-```javascript
+```typescript
 //1、定义Animal类
 class Animal {
     name: string;
@@ -466,4 +466,152 @@ class Cat extends Animal {
     }
 }
 ```
+
+#### 4、抽象类
+
+~~~typescript
+/** 抽象类语法： 
+ *      abstract class 父类 （eg: abstract class Animal）
+ * 
+ * 特性：
+ *  --- 抽象类和其他类区别不大，只是不能用来创建对象（不能 new Animal()）
+ *  --- 抽象类可以定义抽象方法
+ */
+abstract class Animal {
+    name: string;
+    age: number;
+
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+
+    /* 
+    * 1、抽象方法使用abstract 开头， 没有方法体
+    * 2、抽象方法只能定义在抽象类中，子类必须对抽象类进行重写
+    */
+    abstract sayHello(): void;
+}
+~~~
+
+
+
+
+
+## 五、接口
+
+#### 1、接口的简单介绍
+
+> 接口其实就是定义一个规范
+
+~~~typescript
+/* 用法1：
+* 描述一个对象的类型
+* type myType {} 不能重复定义
+* interface MyInter {} 可以重复定义
+*/
+type MyType = {
+    name: string,
+    age: number,
+    [propName: string]: any
+}
+
+//接口就是用来定义一个类（对象）的结构
+interface MyInter {
+    name: string;
+    age: number;
+}
+
+
+//声明
+const obj: MyType = {
+    name: '孙悟空',
+    age: 18
+}
+
+const obj2: MyInter = {
+    name: '孙悟空',
+    age: 18
+}
+
+
+
+/**
+ *  用法2：
+ *  接口可以在定义类的时候限制类的结构
+ * tips： 接口中所有属性都不能有实际的值；接口只定义对象的结构，而不考虑实际值
+ * 
+ * */
+interface MyInter2{
+    name: string;
+
+    sayHello(): void;
+}
+
+//定义类时，可以使类去实现一个接口
+//tips: 什么是实现接口？ 实现接口就是使类满足接口的要求。
+class MyClass implements MyInter2 {
+    name: string;
+
+    constructor(name: string){
+        this.name = name;
+    }
+
+    sayHello(): void{
+        console.log('哈哈哈！')
+    }
+}
+~~~
+
+
+
+
+
+## 六、属性的封装
+
+~~~typescript
+/** 
+ * 定义一个人的类
+ *  TS可以在属性前加修饰符 (static、 readonly、public、private)
+ * public: 修饰的属性可以在任意位置被访问（修改）； 默认值
+ * private: 私有属性只能在内部访问（修改）
+ *  -- 通过在类中设置方法使得属性可以被外部访问
+ *
+ * protected: 受保护的属性；只能在当前类和当前类的子类中使用（访问、修改）
+ * 
+ **/
+class Person {
+    private _name: string;
+    private _age: number;
+
+    constructor(name: string, age: number) {
+        this._name = name;
+        this._age = age;
+    }
+
+    //读取器
+    get name() {
+        return this._name;
+    }
+
+    //存储器
+    set name(value: string) {
+        this._name = value
+    }
+
+    get age() {
+        return this._age;
+    }
+    set age(value: number) {
+        if (value >= 0) {
+            this._age = value;
+        }
+    }
+}
+
+//使用
+const per = new Person('猪八戒', 20);
+per.name = '孙悟空';
+per.age = 118;
+~~~
 
