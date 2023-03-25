@@ -469,7 +469,7 @@ class Cat extends Animal {
 
 #### 4、抽象类
 
-```typescript 
+```typescript
 /** 抽象类语法： 
  *      abstract class 父类 （eg: abstract class Animal）
  * 
@@ -613,5 +613,66 @@ class Person {
 const per = new Person('猪八戒', 20);
 per.name = '孙悟空';
 per.age = 118;
+```
+
+
+
+## 七、泛型
+
+> 若是在定义函数或者类时，遇到类型不明确就可以使用泛型
+
+```typescript
+/**
+ * 用法1：指定单个泛型
+ */
+function fn1<T>(m: T): T {
+    return m;
+}
+
+//可以直接调用具有泛型的函数
+fn1(10);//-> 不指定泛型，TS可以自动对类型进行推断
+fn1<string>('hello'); //指定泛型
+
+
+
+/**
+ * 用法2：指定多个泛型
+ */
+function fn2<T, K>(a: T, b: K): K {
+    console.log(a);
+    return b;
+}
+
+fn2<number, string>(12, 'hello')
+
+
+
+/**
+ * 用法3： 限制泛型的范围
+ * <T extends Inter>: 表示泛型T必须是Inter的实现类（子类）
+ */
+interface Inter {
+    length: number
+}
+function fn3<T extends Inter>(a: T): number {
+    return a.length
+}
+fn3('hello');
+fn3({ name: '孙悟空', length: 2 });
+
+
+
+
+/**
+ * 用法4： 类中使用泛型
+ */
+class MyClass<T>{
+    name: T;
+    constructor(a: T) {
+        this.name = a;
+    }
+}
+
+const mc = new MyClass<string>('孙悟空')
 ```
 
