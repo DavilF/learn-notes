@@ -469,7 +469,7 @@ class Cat extends Animal {
 
 #### 4、抽象类
 
-```typescript
+```typescript 
 /** 抽象类语法： 
  *      abstract class 父类 （eg: abstract class Animal）
  * 
